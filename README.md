@@ -34,3 +34,14 @@ Para esta carpeta, decidi separar entre diferentes servicios, en donde, cada exe
 - Utilizar CICD para automatizar cada vez que hagamos un cambio y que nosotros (devops) no tengamos permisos para modificar la infrastructura, lo ideal es que CICD tenga la service account para que solamente esa pueda modificar la infra.
 
 
+#### Requerimientos
+
+- Terraform
+- gcloud configurado
+
+
+#### Pasos para ejecutar terraform
+
+#### Pasos para correr la API
+- Setear la variable GOOGLE_APPLICATION_CREDENTIALS para que tu aplicacion pueda usar la API de GCP con esa SA.
+- export GOOGLE_APPLICATION_CREDENTIALS="path_to_sa"

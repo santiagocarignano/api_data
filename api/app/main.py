@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import database_router
+from routes import bigquery_router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -10,4 +10,4 @@ app.add_middleware(
     allow_credentials=True,
 )
 
-app.include_router(database_router.router, prefix="/api/v1")
+app.include_router(bigquery_router.router, prefix="/api/v1")

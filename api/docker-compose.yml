@@ -5,24 +5,10 @@ services:
     build: .
     ports:
       - "8000:8000"
-    depends_on:
-      - db
     restart: always
     command: uvicorn main:app --host 0.0.0.0 --reload
     volumes:
       - ./app:/code
-
-  db:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: adminuser
-      POSTGRES_PASSWORD: adminpassword
-      POSTGRES_DB: postgresdatabase
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    restart: always
 
 volumes:
   postgres_data:
