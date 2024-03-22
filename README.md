@@ -24,6 +24,8 @@ Para esta carpeta, decidi separar entre diferentes servicios, en donde, cada exe
 - terraform.tfvars - Definicion de valores para variables.
 
 #### Mejoras:
+
+Infraestructura
 - Si voy a tener varios ambientes (dev/test/prod), puedo tener la siguiente estructura para poder escalar el sistema:
   terraform:
     - production
@@ -33,11 +35,15 @@ Para esta carpeta, decidi separar entre diferentes servicios, en donde, cada exe
 - Incluir reglas de IAM para evitar otorgar accesos indevidos.
 - Utilizar CICD para automatizar cada vez que hagamos un cambio y que nosotros (devops) no tengamos permisos para modificar la infrastructura, lo ideal es que CICD tenga la service account para que solamente esa pueda modificar la infra.
 
+API
+- Si vamos a tener una mayor carga, se consideraria utilizar explicitamente async/await (asyncio) para obtener un mayor rendimiento.
+- 
 
 #### Requerimientos
 
 - Terraform
 - gcloud configurado
+- Tener Dataflow, containerregistry, bigquery y compute engine API activados.
 
 
 #### Pasos para ejecutar terraform

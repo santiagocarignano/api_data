@@ -2,13 +2,11 @@ version: '3.8'
 
 services:
   api:
-    build: .
+    # build: .
+    image: testing-api:0.0.7
     ports:
       - "8000:8000"
-    restart: always
-    command: uvicorn main:app --host 0.0.0.0 --reload
-    volumes:
-      - ./app:/code
-
-volumes:
-  postgres_data:
+    # restart: always
+    # command: uvicorn main:app --host 0.0.0.0 --reload
+    # volumes:
+      # - ./app:/code

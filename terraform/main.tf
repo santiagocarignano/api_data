@@ -91,3 +91,12 @@ resource "google_dataflow_job" "dataflow" {
   depends_on = [google_pubsub_subscription.suscriber]
 }
 
+#######################
+# Artifact Registry
+#######################
+
+resource "google_artifact_registry_repository" "api_data_registry" {
+  repository_id = "api-data-repo"
+  description   = "Docker repository"
+  format        = "DOCKER"
+}
