@@ -1,15 +1,10 @@
 name: Build and Deploy to Cloud Run
 
-# on:
-#   pull_request:
-#     branches:
-#       - develop
-#     types: [closed]
-
 on:
-  [push]
-    # paths:
-    #   - 'api/**'
+  pull_request:
+    branches:
+      - develop
+    types: [closed]
 
 jobs:
   setup-build-publish-deploy:
