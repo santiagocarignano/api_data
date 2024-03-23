@@ -2,11 +2,6 @@ version: '3.8'
 
 services:
   api:
-    # build: .
-    image: testing-api:0.0.7
+    build: .
     ports:
       - "8000:8000"
-    # restart: always
-    # command: uvicorn main:app --host 0.0.0.0 --reload
-    # volumes:
-      # - ./app:/code
