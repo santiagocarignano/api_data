@@ -41,16 +41,14 @@ Para el caso de este proyecto, se debe integrar un archivo con extension .yml de
 ```
 .github
 └── workflows
-    ├── develop.yml
+    ├── deployment.yml
     └── testing.yml
-    └── main.yml
 ```
 
 El objetivo de la Integracion y Despliegue Continuo, es lograr que automaticamente se hagan las siguientes tareas:
 
 - testing.yml - Ejecutar los test para cada cambio que haga en la API no afecten al codigo. Este se va a ejecutar con cada PUSH y cada PR solicitado.
-- develop.yml - Se encargara de desplegar el codigo al entorno de desarrollo (CloudRun development). Cabe destacar para el caso de esta aplicacion, el entorno de desarrollo no esta desplegado, pero seria una mejora para el mismo. Este generara una nueva imagen Docker, la subira al Artifact Registry y luego actualizara la instancia de CloudRun con esta ultima imagen.
-- main.yml - Desplegara el codigo a Produccion. Tendra el mismo funcionamiento que develop en terminos de generar una nueva imagen docker y actualizar la instancia CloudRun.
+- deployment.yml - Se encargara de desplegar el codigo al entorno de CloudRun. Cabe destacar para el caso de esta aplicacion, tenemos un solo entorno, que se el de desplegado por terraform. Este generara una nueva imagen Docker, la subira al Artifact Registry y luego actualizara la instancia de CloudRun con esta ultima imagen.
 
 #### Arquitectura
 
@@ -112,3 +110,6 @@ Se debera hacer un commit y solicitar el respectivo PR a rama main (en este caso
 
 #### API
 - Si vamos a tener una mayor carga, se consideraria utilizar explicitamente async/await (asyncio) para obtener un mayor rendimiento.
+
+#### CI/CD
+- Para tener una pipeline que se adapte a cada environment creado, una mejora seria modificar la pipeline, para que dependiendo de la branch adonde estemos pusheando codigo, esta despliegue en ese entorno en la nube, por ejemplo si pusheamos a staging, la pipeline debera actualiar la instancia de CloudRun de Staging, asi mismo con main (produccion).

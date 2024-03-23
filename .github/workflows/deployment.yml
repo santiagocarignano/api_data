@@ -1,14 +1,16 @@
 name: Build and Deploy to Cloud Run
 
 on:
-  push:
+  pull_request:
     branches:
-      - main
+      - develop
+    types: [closed]
 
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
 
     steps:
     - uses: actions/checkout@v2
