@@ -30,4 +30,3 @@ async def test_bigquery_route_invalid_query():
         async with AsyncClient(app=app, base_url="http://test") as ac:
             response = await ac.get(f"/api/v1/{test_id}")
             assert response.status_code == 400
-            assert response.json().get("detail") == "Invalid Query"

@@ -8,4 +8,4 @@ def bigquery_controller(id):
     try:
         return [ResponseSerializer(**row).model_dump() for row in query_to_bigquery(id)]
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Invalid Query")
+        raise HTTPException(status_code=400, detail=f"Invalid Query for {e}")
