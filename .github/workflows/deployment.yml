@@ -30,7 +30,8 @@ jobs:
     - name: Build and Push Docker image
       run: |
         cd api
-        docker login -u _json_key -p "$(cat ${{ secrets.GCP_SA_KEY }})" https://us.gcr.io
+        echo $GCP_SA_KEY > keyfile.json
+        docker login -u _json_key -p "$(cat keyfile.json)" https://us.gcr.io  
         docker build -t us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/api-data-repo:$GITHUB_SHA .
         docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/api-data-repo:$GITHUB_SHA
 
