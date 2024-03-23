@@ -39,4 +39,4 @@ jobs:
 
     - name: Deploy to Cloud Run
       run: |
-        gcloud run deploy api-data-repo-service --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/api-data-repo:$GITHUB_SHA --region us-central1 --platform managed --allow-unauthenticated --port=8000 --service-account=${{ secrets.GCP_SA_EMAIL }} 
+        gcloud run deploy api-data-repo-service --image us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/api-data-repo:$GITHUB_SHA --region us-central1 --platform managed --allow-unauthenticated --port=8000 --service-account=${{ secrets.GCP_SA_KEY }} 
