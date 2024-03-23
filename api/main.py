@@ -9,5 +9,4 @@ app.add_middleware(
     allow_origins=["localhost:8000"],
     allow_credentials=True,
 )
-#
 app.include_router(bigquery_router.router, prefix="/api/v1")
