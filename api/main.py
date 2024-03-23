@@ -11,4 +11,3 @@ app.add_middleware(
 )
 
 app.include_router(bigquery_router.router, prefix="/api/v1")
-# testing pipeline
