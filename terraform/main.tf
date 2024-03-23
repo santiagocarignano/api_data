@@ -3,11 +3,11 @@
 #######################
 
 resource "google_pubsub_topic" "topic" {
-  name = "api_dataflow_topic"
+  name = var.topic_name
 }
 
 resource "google_pubsub_subscription" "suscriber" {
-  name  = "dataflow_suscriber"
+  name  = var.dataflow_suscriber_name
   topic = google_pubsub_topic.topic.name
 
   depends_on = [ google_cloud_scheduler_job.scheduler_job]
@@ -18,12 +18,11 @@ resource "google_pubsub_subscription" "suscriber" {
 #######################
 
 resource "google_cloud_scheduler_job" "scheduler_job" {
-  name     = "insert-data-to-bigquery"
-  schedule = "0/3 * * * *"
-
+  name     = var.scheduler_job_name
+  schedule = var.scheduler_execution_interval
   pubsub_target {
     topic_name = google_pubsub_topic.topic.id
-    data = base64encode(jsonencode({"id":1,"message": "Hello World From Source","source":"cloud_scheduler"}))
+    data = base64encode(jsonencode({"id":1,"user": "Elon Musk","role":"CEO of Tesla"}))
   }
 
 }
@@ -33,14 +32,14 @@ resource "google_cloud_scheduler_job" "scheduler_job" {
 #######################
 
 resource "google_bigquery_dataset" "dataset" {
-  dataset_id                  = "data_ingested"
-  location                    = "us-east1"
+  dataset_id                  = var.dataset_id
+  location                    = var.location
   delete_contents_on_destroy  = false
 }
 
 resource "google_bigquery_table" "bigquery_table" {
   dataset_id = google_bigquery_dataset.dataset.dataset_id
-  table_id   = "api_data_table"
+  table_id   = var.table_id
   deletion_protection=false
     schema = <<EOF
     [
@@ -50,12 +49,12 @@ resource "google_bigquery_table" "bigquery_table" {
       "mode": "REQUIRED"
     },
     {
-        "name": "message",
+        "name": "user",
         "type": "STRING",
         "mode": "NULLABLE"
     },
     {
-        "name": "source",
+        "name": "role",
         "type": "STRING",
         "mode": "NULLABLE"
     }
@@ -68,7 +67,7 @@ resource "google_bigquery_table" "bigquery_table" {
 #######################
 
 resource "google_storage_bucket" "dataflow_temp_bucket" {
-  name          = "dataflow_temp_files_api_data"
+  name          = var.bucket_name
   location      = "US"
   force_destroy = true
 
@@ -80,11 +79,11 @@ resource "google_storage_bucket" "dataflow_temp_bucket" {
 #######################
 
 resource "google_dataflow_job" "dataflow" {
-  name              = "dataflow-job"
-  template_gcs_path = "gs://dataflow-templates-us-east1/latest/PubSub_Subscription_to_BigQuery"
+  name              = var.job_name
+  template_gcs_path = var.template_dataflow
   temp_gcs_location = google_storage_bucket.dataflow_temp_bucket.url
   parameters = {
-    inputSubscription         = "projects/fourth-ability-324823/subscriptions/dataflow_suscriber"
+    inputSubscription         = "projects/${var.project_id}/subscriptions/${var.dataflow_suscriber_name}"
     outputTableSpec    = "${google_bigquery_dataset.dataset.project}.${google_bigquery_dataset.dataset.dataset_id}.${google_bigquery_table.bigquery_table.table_id}"
   }
 
@@ -96,7 +95,7 @@ resource "google_dataflow_job" "dataflow" {
 #######################
 
 resource "google_artifact_registry_repository" "api_data_registry" {
-  repository_id = "api-data-repo"
+  repository_id = var.artifact_registry_repository
   description   = "Docker repository"
   format        = "DOCKER"
 }
