@@ -8,7 +8,7 @@ from unittest.mock import patch
 async def test_bigquery_route():
     test_id = "1"
     expected_response = [
-        {"id": "1", "message": "Hello World From Source", "source": "cloud_scheduler"}
+        {"id": "1", "user": "Elon Musk", "role": "CEO of Tesla"}
     ]
     with patch(
         "controllers.bigquery_controller.query_to_bigquery",
