@@ -1,16 +1,21 @@
 name: Build and Deploy to Cloud Run
 
+# on:
+#   pull_request:
+#     branches:
+#       - develop
+#     types: [closed]
+
 on:
-  pull_request:
-    branches:
-      - develop
-    types: [closed]
+  push:
+    paths:
+      - 'api/**'
 
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
 
     steps:
     - uses: actions/checkout@v2
@@ -23,9 +28,9 @@ jobs:
 
     - name: Build and Push Docker image
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/myapp:$GITHUB_SHA .
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/myapp:$GITHUB_SHA
+        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/api-data-repo:$GITHUB_SHA .
+        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/api-data-repo:$GITHUB_SHA
 
     - name: Deploy to Cloud Run
       run: |
-        gcloud run deploy myapp-service --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/myapp:$GITHUB_SHA --region us-central1 --platform managed --allow-unauthenticated
+        gcloud run deploy api-data-repo-service --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/api-data-repo:$GITHUB_SHA --region us-central1 --platform managed --allow-unauthenticated
