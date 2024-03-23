@@ -89,7 +89,7 @@ Las alertas que plantearia para este sistema serian varias:
 
 SLI's (Service Level Indicators) y SLO's (Service Level Objetives) 
 - El primer indicador de servicio planteado es la disponibilidad que tiene la API para ser consumida. El objetivo de servicio seria mayor a un 99.9% ya que esto seria 8 horas y 45 minutos de downtime al año.
-- Otro indicador de servicio podria ser la cantidad de datos procesados en Dataflow, en donde el objetivo de servicio deberia ser un porcentaje superior a un 99% para no tener distorciones en los datos ingestados a BigQuery. es decir, el 99% de los archivos procesdos por Dataflow seran procesados correctamente. Este valor dependera de la exactitud que necesitemos en BigQuery.
+- Otro indicador de servicio podria ser la cantidad de datos procesados en Dataflow, en donde el objetivo de servicio deberia ser un porcentaje superior a un 99% para no tener distorciones en los datos ingestados a BigQuery, es decir, el 99% de los archivos procesdos por Dataflow seran procesados correctamente. Este valor dependera de la exactitud que necesitemos en BigQuery.
 
 ### Inicializacion del Proyecto.
 
@@ -104,7 +104,7 @@ Se deben cumplir los siguientes requisitos para ejecutar el proyecto.
 - Docker (Para pruebas locales)
 - Docker Compose (Para pruebas locales)
 - Tener una service account en formato Json, para que pueda ser utilizada por la API y por Terraform. Esta se debera llamar service_account.json
-- Crear un bucket en el proyecto GCP para que terraform guarde los estados alli. Luego modificar el archivo remote_state.tf con el nombre indicado.
+- Crear un bucket en el proyecto GCP para que terraform guarde los estados. Luego modificar el archivo remote_state.tf con el nombre indicado.
 - Setear la variable de entorno GOOGLE_APPLICATION_CREDENTIALS con la ubicacion de esta SA.
 - Setear en los secretos de GitHub Actions, la variables:
   - GCP_PROJECT_ID = Indicando el ID del proyecto de GCP
