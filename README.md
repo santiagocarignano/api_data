@@ -70,8 +70,9 @@ Se deben cumplir los siguientes requisitos para ejecutar el proyecto.
 - Crear un bucket en el proyecto GCP para que terraform guarde los estados alli. Luego modificar el archivo remote_state.tf con el nombre indicado.
 - Setear la variable de entorno GOOGLE_APPLICATION_CREDENTIALS con la ubicacion de esta SA.
 - Setear en los secretos de GitHub Actions, la variables:
-- GCP_PROJECT_ID = Indicando el ID del proyecto de GCP
-- GCP_SA_KEY = Esta variable tiene que contener la Service Account que va a usar Github Actions para desplegar a CloudRun la API. La misma, debera tener los permisos suficientes para realizarlo.
+  - GCP_PROJECT_ID = Indicando el ID del proyecto de GCP
+  - GCP_SA_KEY = Esta variable tiene que contener la Service Account que va a usar Github Actions para desplegar a CloudRun la API. La misma, debera tener los permisos suficientes para realizarlo.
+  - GCP_SA_EMAIL = Email usado en la Service Account.
 
 #### Pasos para desplegar la infraestructura en GCP.
 
