@@ -27,11 +27,13 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         export_default_credentials: true
 
+    - name: Authenticate Docker with GCP
+      run: |
+        gcloud auth configure-docker us.gcr.io
+
     - name: Build and Push Docker image
       run: |
         cd api
-        echo $GCP_SA_KEY > keyfile.json
-        docker login -u _json_key -p "$(cat keyfile.json)" https://us.gcr.io  
         docker build -t us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/api-data-repo:$GITHUB_SHA .
         docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/api-data-repo:$GITHUB_SHA
 
