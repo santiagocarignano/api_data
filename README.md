@@ -104,9 +104,9 @@ Se debera hacer un commit y solicitar el respectivo PR a rama main (en este caso
 
 #### Infraestructura
 - Con el objetivo de tener diferentes ambientes, se podria mejorar el IaC para que se desplieguen diferentes ambientes usando los mismo archivos. Este desplegaria los siguientes ambientes:
-- Desarrollo
-- Testing
-- Produccion
+  - Desarrollo
+  - Testing
+  - Produccion
 - Realizar el despliegue de la Aplicacion de CloudRun utilizando terraform y dos service account, una encargada de realizar las consultas a BigQuery, que tendra los respectivos permisos, y otra que sera dada al servicio que consultar a la API, con permisos de invoker, para que solamente usando esta cuenta de servicio se pueda realizar consultas a la API y no afecte a otro servicio de GCP.
 - Utilizar CICD con sus respectivos secretos, para automatizar los cambios en infraestructura cada vez que se necesiten y que nosotros (DevOps) no tengamos permisos para modificar la infrastructura, lo ideal es que CICD tenga la service account para que solamente esa pueda modificar la infra.
 
