@@ -63,7 +63,7 @@ Se deben cumplir los siguientes requisitos para ejecutar el proyecto.
 - Python 3 version 3.8
 - Terraform instalado
 - gcloud instalado y configurado
-- Dentro del proyecto de GCP, tener habilitado la API de Dataflow, Container Registry, BigQuery Api Y Compute Engine API.
+- Dentro del proyecto de GCP, tener habilitado la API de Dataflow, Container Registry, BigQuery Api, Compute Engine API y CloudRun.
 - Docker (Para pruebas locales)
 - Docker Compose (Para pruebas locales)
 - Tener una service account en formato Json, para que pueda ser utilizada por la API y por Terraform. Esta se debera llamar service_account.json
